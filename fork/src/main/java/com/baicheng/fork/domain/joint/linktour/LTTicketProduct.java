@@ -7,7 +7,9 @@ package com.baicheng.fork.domain.joint.linktour;
  */
 public class LTTicketProduct extends LTBaseProduct {
 
-	private LTTicketContent contents;
+	
+	private String type; // 产品的二级类别 PHYSICAL实体票，ETICKET电子票 VOUCHER换票证
+	private LTTicketContent contents; // 详情内容
 
 	public LTTicketContent getContents() {
 		return contents;

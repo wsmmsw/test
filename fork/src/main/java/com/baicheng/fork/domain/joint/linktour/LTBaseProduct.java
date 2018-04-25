@@ -22,11 +22,9 @@ public class LTBaseProduct extends Domain {
 	private String confirmation; // 订单确认方式 AUTO（自动确认） HAND（人工确认）
 	private String issue;
 	private String category; // 产品类型
-	private Boolean type;
 	private String departures; // 出发地
 	private String destinations; // 目的地
 	private String timezone; // 时区
-	private String coordinate;
 	private String summary; // 简介
 	private String latlng; // 谷歌地图坐标
 	private String languages; // 服务语言，多个语言用,分割
@@ -37,7 +35,7 @@ public class LTBaseProduct extends Domain {
 	private String price2; // 最高售卖价
 	private LTSeller seller; // 卖家结构
 	private List<LTChangeRule> changes; // 退改规则
-	private String[] attachments; // 补充信息
+	private List<String> attachments; // 补充信息
 	private List<LTSku> skus;
 	private List<LTStock> stocks;
 
@@ -129,14 +127,6 @@ public class LTBaseProduct extends Domain {
 		this.category = category;
 	}
 
-	public Boolean getType() {
-		return type;
-	}
-
-	public void setType(Boolean type) {
-		this.type = type;
-	}
-
 	public String getDepartures() {
 		return departures;
 	}
@@ -159,14 +149,6 @@ public class LTBaseProduct extends Domain {
 
 	public void setTimezone(String timezone) {
 		this.timezone = timezone;
-	}
-
-	public String getCoordinate() {
-		return coordinate;
-	}
-
-	public void setCoordinate(String coordinate) {
-		this.coordinate = coordinate;
 	}
 
 	public String getSummary() {
@@ -249,11 +231,11 @@ public class LTBaseProduct extends Domain {
 		this.changes = changes;
 	}
 
-	public String[] getAttachments() {
+	public List<String> getAttachments() {
 		return attachments;
 	}
 
-	public void setAttachments(String[] attachments) {
+	public void setAttachments(List<String> attachments) {
 		this.attachments = attachments;
 	}
 

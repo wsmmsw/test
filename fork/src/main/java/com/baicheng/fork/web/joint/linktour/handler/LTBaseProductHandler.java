@@ -9,15 +9,12 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.baicheng.fork.domain.joint.linktour.LTBaseProduct;
-import com.baicheng.fork.domain.joint.linktour.LTSku;
-import com.baicheng.fork.domain.joint.linktour.LTStock;
 import com.baicheng.fork.domain.joint.linktour.LTUser;
 import com.baicheng.fork.web.joint.linktour.LinkTourCategoryConstants;
 import com.baicheng.fork.web.joint.linktour.LinkTourConstants;
 import com.baicheng.fork.web.joint.linktour.responsedto.LTProductListResponseDTO;
 import com.baicheng.fork.web.joint.linktour.responsedto.LTStockResponseDTO;
 import com.baicheng.utils.JsonUtil;
-import com.google.gson.reflect.TypeToken;
 import com.nicetrip.freetrip.http.NTRequest;
 import com.nicetrip.freetrip.http.NTRequestGet;
 import com.nicetrip.freetrip.http.NTResponse;
@@ -29,16 +26,26 @@ import com.nicetrip.freetrip.http.NTResponse;
 public class LTBaseProductHandler {
 	private static final Logger LOGGER = Logger.getLogger(LTBaseProductHandler.class.getName());
 
+	// http param key
 	public static final String TOKEN_KEY = "X-Token";
 	public static final String PAGE_KEY = "page";
 	public static final String LIMIT_KEY = "limit";
 	public static final String CATEGORY_KEY = "category";
 	public static final String VERSION_KEY = "X-Version";
 
+	// http param value
 	public static final int PAGE_VALUE = 1;
 	public static final int LIMIT_VALUE = 50;
 	public static final String CATEGORY_VALUE = LinkTourCategoryConstants.TICKET_TYPE;
 	public static final String VERSION_VALUE = "20170901";
+
+	// result map key
+	public static final String RESULT_CODE_KEY = "code";
+	public static final String RESULT_VALUE_KEY = "resultValue";
+
+	// result map value
+	public static final String SUCCESS_CODE_VALUE = "100000";
+	public static final String FAILURE_CODE_VALUE = "-1";
 
 	/**
 	 * 调用api分页获取产品列表
@@ -46,7 +53,7 @@ public class LTBaseProductHandler {
 	 * @return
 	 */
 	protected static List<LTBaseProduct> getBaseProductList(String category) {
-		
+
 		try {
 			/**
 			 * 调用逻辑 1：第一次调用获取总条数 2：根据总条数分页 3：分页获取数据
@@ -65,117 +72,135 @@ public class LTBaseProductHandler {
 	}
 
 	/**
-	 * 获取产品详情
+	 * 获取产品详情 返回map 结构 map key是code 100000标识接口返回成功 -1标识接口返回失败 map
+	 * key是resultValue 返回的结构值，返回失败值为null
 	 * 
 	 * @return
 	 */
-	protected String getProductDetail(long pId) {
-		String result = null;
+	protected Map<String, String> getProductDetail(long pId) {
+		Map<String, String> resultMap = getDefalutResultMap();
 		try {
 			LTTokenHandler tokenHandler = new LTTokenHandler();
 			LTUser ltUser = tokenHandler.getLTUser();
 			if (ltUser == null || StringUtils.isEmpty(ltUser.getToken())) {
-				return null;
+				return resultMap;
 			}
 
 			String challengeUrl = LTUrlHandler.getBaseUrl(LinkTourConstants.PRODUCT_REQUEST_TYPE, pId);
 			NTRequest request = new NTRequestGet(challengeUrl);
 			request.addHeader(LTBaseProductHandler.TOKEN_KEY, ltUser.getToken());
-			request.addUrlParam(VERSION_KEY, VERSION_VALUE);
+			request.addHeader(VERSION_KEY, VERSION_VALUE);
 
 			NTResponse response = request.execute();
-			// 接口返回成功
-			if (response != null && response.getHttpCode() == LinkTourConstants.SUCCESS_HTTP_CODE) {
-				result = response.getEntity();
+			if (response == null || response.getHttpCode() != LinkTourConstants.SUCCESS_HTTP_CODE) {
+				LOGGER.error("###### 获取产品id :" + pId + " 详情失败");
+				return resultMap;
 			}
+
+			// 接口返回成功
+			resultMap.put(RESULT_CODE_KEY, SUCCESS_CODE_VALUE);
+			resultMap.put(RESULT_VALUE_KEY, response.getEntity());
 		} catch (Exception e) {
-			LOGGER.error("######## 获取产品详情异常，产品id ："+pId+e.getMessage(), e);
+			LOGGER.error("######## 获取产品详情异常，产品id ：" + pId + "异常信息 : " + e.getMessage(), e);
 			e.printStackTrace();
 		}
 
-		return result;
+		return resultMap;
 
 	}
 
 	/**
-	 * 根据产品id获取sku信息
+	 * 根据产品id获取sku信息 返回map 结构 map key是code 100000标识接口返回成功 -1标识接口返回失败 map
+	 * key是resultValue 返回的结构值，返回失败值为null
 	 * 
 	 * @return
 	 */
-	protected List<LTSku> getSkuList(long pId) {
-		List<LTSku> ltSkuList = null;
+	protected Map<String, String> getSkuList(long pId) {
+		Map<String, String> resultMap = getDefalutResultMap();
 		try {
 			LTTokenHandler tokenHandler = new LTTokenHandler();
 			LTUser ltUser = tokenHandler.getLTUser();
 			if (ltUser == null || StringUtils.isEmpty(ltUser.getToken())) {
-				return null;
+				return resultMap;
 			}
 
 			String challengeUrl = LTUrlHandler.getBaseUrl(LinkTourConstants.PRODUCT_SKU_REQUEST_TYPE, pId);
 			NTRequest request = new NTRequestGet(challengeUrl);
 			request.addHeader(TOKEN_KEY, ltUser.getToken());
-			request.addUrlParam(VERSION_KEY, VERSION_VALUE);
+			request.addHeader(VERSION_KEY, VERSION_VALUE);
 
 			NTResponse response = request.execute();
-			// 接口返回成功
-			if (response != null && response.getHttpCode() == LinkTourConstants.SUCCESS_HTTP_CODE) {
-				String result = response.getEntity();
-				if (StringUtils.isNotEmpty(result)) {
-					ltSkuList = JsonUtil.json2bean(result, new TypeToken<ArrayList<LTSku>>() {
-					}.getType());
-				}
+
+			if (response == null || response.getHttpCode() != LinkTourConstants.SUCCESS_HTTP_CODE) {
+				LOGGER.error("###### 获取产品id :" + pId + " sku失败");
+				return resultMap;
 			}
+
+			// 接口返回成功
+			resultMap.put(RESULT_CODE_KEY, SUCCESS_CODE_VALUE);
+			resultMap.put(RESULT_VALUE_KEY, response.getEntity());
+			// ltSkuList = JsonUtil.json2bean(result, new
+			// TypeToken<ArrayList<LTSku>>() {
+			// }.getType());
 		} catch (Exception e) {
-			LOGGER.error("######## 获取sku异常，产品id ："+pId+e.getMessage(), e);
+			LOGGER.error("######## 获取sku异常，产品id ：" + pId + "异常信息 ： " + e.getMessage(), e);
 			e.printStackTrace();
 		}
 
-		return ltSkuList;
+		return resultMap;
 	}
 
 	/**
-	 * 根据产品id获取价格和库存信息
+	 * 根据产品id获取价格和库存信息 返回map 结构 map key是code 100000标识接口返回成功 -1标识接口返回失败 map
+	 * key是resultValue 返回的结构值，返回失败值为null
 	 * 
 	 * @return
 	 */
-	protected List<LTStock> getStockList(long pId) {
-		List<LTStock> ltStockList = null;
+	protected Map<String, String> getStockList(long pId) {
+		Map<String, String> resultMap = getDefalutResultMap();
 		try {
 			LTTokenHandler tokenHandler = new LTTokenHandler();
 			LTUser ltUser = tokenHandler.getLTUser();
 			if (ltUser == null || StringUtils.isEmpty(ltUser.getToken())) {
-				return null;
+				return resultMap;
 			}
 
 			String challengeUrl = LTUrlHandler.getBaseUrl(LinkTourConstants.PRODUCT_STOCK_PRICE_REQUEST_TYPE, pId);
 			NTRequest request = new NTRequestGet(challengeUrl);
 			request.addHeader(TOKEN_KEY, ltUser.getToken());
-			request.addUrlParam(VERSION_KEY, VERSION_VALUE);
+			request.addHeader(VERSION_KEY, VERSION_VALUE);
 
 			NTResponse response = request.execute();
-			// 接口返回成功
-			if (response != null && response.getHttpCode() == LinkTourConstants.SUCCESS_HTTP_CODE) {
-				String result = response.getEntity();
-				if (StringUtils.isNotEmpty(result)) {
-					LTStockResponseDTO responseDTO = JsonUtil.json2bean(result, LTStockResponseDTO.class);
-					ltStockList = responseDTO.getStocks();
-				}
+
+			if (response == null || response.getHttpCode() != LinkTourConstants.SUCCESS_HTTP_CODE) {
+				LOGGER.error("###### 获取产品id :" + pId + " 库存失败");
+				return resultMap;
 			}
+
+			// 接口返回成功
+			String result = response.getEntity();
+			LTStockResponseDTO responseDTO = JsonUtil.json2bean(result, LTStockResponseDTO.class);
+			resultMap.put(RESULT_CODE_KEY, SUCCESS_CODE_VALUE);
+			resultMap.put(RESULT_VALUE_KEY, JsonUtil.bean2json(responseDTO.getStocks()));
+			// ltStockList = responseDTO.getStocks();
+
 		} catch (Exception e) {
-			LOGGER.error("######## 获取库存数据异常，产品id ："+pId+e.getMessage(), e);
+			LOGGER.error("######## 获取库存数据异常，产品id ：" + pId + "异常信息：" + e.getMessage(), e);
 			e.printStackTrace();
 		}
 
-		return ltStockList;
+		return resultMap;
 	}
-	
+
 	/**
 	 * 获取总数量和第一页的产品信息
+	 * 
 	 * @param category
 	 * @param resultProductList
 	 * @return
 	 */
-	private static void convertFristPageProduct(String category, List<LTBaseProduct> resultProductList,Map<String, Integer> countMap) {
+	private static void convertFristPageProduct(String category, List<LTBaseProduct> resultProductList,
+			Map<String, Integer> countMap) {
 		try {
 			LTTokenHandler tokenHandler = new LTTokenHandler();
 			LTUser ltUser = tokenHandler.getLTUser();
@@ -187,9 +212,9 @@ public class LTBaseProductHandler {
 
 			// 1：第一次调用获取总条数和第一页产品数据
 			request.addHeader(TOKEN_KEY, ltUser.getToken());
+			request.addHeader(VERSION_KEY, VERSION_VALUE);
 			request.addUrlParam(PAGE_KEY, PAGE_VALUE);
 			request.addUrlParam(LIMIT_KEY, LIMIT_VALUE);
-			request.addUrlParam(VERSION_KEY, VERSION_VALUE);
 			request.addUrlParam(CATEGORY_KEY, category);
 
 			int retry = 0;
@@ -219,9 +244,10 @@ public class LTBaseProductHandler {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * 获取下一页产品数据
+	 * 
 	 * @param category
 	 * @param resultProductList
 	 * @param countMap
@@ -247,9 +273,9 @@ public class LTBaseProductHandler {
 					break;
 				}
 				request.addHeader(TOKEN_KEY, ltUser.getToken());
+				request.addHeader(VERSION_KEY, VERSION_VALUE);
 				request.addUrlParam(PAGE_KEY, i);
 				request.addUrlParam(LIMIT_KEY, LIMIT_VALUE);
-				request.addUrlParam(VERSION_KEY, VERSION_VALUE);
 				request.addUrlParam(CATEGORY_KEY, category);
 
 				NTResponse response = null;
@@ -278,9 +304,20 @@ public class LTBaseProductHandler {
 		}
 
 	}
-	
-	public static void main(String[] args){
+
+	/**
+	 * 调用API接口返回结果对应的map
+	 * 
+	 * @return
+	 */
+	private Map<String, String> getDefalutResultMap() {
+		Map<String, String> map = new HashMap<>(2);
+		map.put(RESULT_CODE_KEY, FAILURE_CODE_VALUE);
+		return map;
+	}
+
+	public static void main(String[] args) {
 		getBaseProductList(LinkTourCategoryConstants.TICKET_TYPE);
 	}
-	
+
 }
