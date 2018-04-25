@@ -1,0 +1,33 @@
+html,body{background-color: #f2f2f2}
+.main-container:after{background: #f2f2f2}
+.row{margin-bottom: 10px;}
+.btn{padding:0 5px;}
+
+.myColStyle{margin: 10px 0;text-align: right;}
+.myColStyle10{margin: 10px 0;}
+.myColStyleRight{text-align: right;}
+.myColStyleRed{color:#ff6600;}
+.myColStyleYellow{ color:#FFAA00;}
+.myTabStyle{ min-height:68px;}
+.myCheckStyle0{margin: 0;}
+/*.phoneTips span.tipred{color:#ff0000;font-size: 1.5em;}*/
+.myBorderStyle{border: 1px solid #c5d0dc;}
+
+/**短息日志*/
+.myPageStyle input{width:50px;}
+.myPageStyle em{border:none; font-style: normal;}
+.myPStyle{}
+.pager{margin: 0;}
+.myButtonStyle{background-color:#66aaff!important;border-color: #66aaff;}
+.ui-datepicker{width: auto !important;}
+.myALinkStyle{ color: #707070; text-decoration: none;}
+.myALinkStyle:hover,.myALinkStyle:link{ color: #707070; text-decoration: none;}
+/*数据统计 热力地图*/
+.searchTxt{height: 38px;line-height: 38px;}
+.b-form-group{ float: none;}
+.chosen-container{top: -3px;}
+.chosen-container-single .chosen-search input[type="text"]{ background: none;}
+.chosen-container-single .chosen-single{ border-radius: 0; border: 1px solid #CBD5DD;}
+.chosen-container-single .chosen-single{ height:36px; background: none;}
+.chosen-container-single .chosen-single span{ line-height: 34px;}
+.chosen-single div b:before{ top: 4px;}

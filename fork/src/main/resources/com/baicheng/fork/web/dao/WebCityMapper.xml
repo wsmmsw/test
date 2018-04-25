@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baicheng.fork.web.dao.WebCityMapper">
+	
+	<cache flushInterval="1800000"/>
+	<resultMap id="nameResultMap" type="com.baicheng.domain.crm.meta.WebCity">
+		<id column="ID" property="id" jdbcType="INTEGER" />
+	    <result column="NameCn" property="nameCn" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap id="CityResultMap" type="com.baicheng.domain.crm.meta.WebCity">
+		<id column="ID" property="id"/>
+	    <result column="NameCn" property="nameCn"/>
+	    <result column="Lat" property="lat"/>
+	    <result column="Lng" property="lng"/>
+	</resultMap>
+	
+	<resultMap id="OrderCityResultMap" type="com.baicheng.fork.domain.extend.OrderDestCity">
+		<result column="CityId" property="id" />
+		<result column="NameCn" property="nameCn" />
+		<result column="CountryID" property="countryId" />
+	</resultMap>
+	
+	<select id="getCityNameList" resultMap="nameResultMap">
+		SELECT c.ID, c.NameCn FROM web_city c
+	</select>
+	
+	<select id="getCityList" resultMap="CityResultMap">
+		SELECT ID,NameCn,Lat, Lng
+		FROM
+		web_city
+		WHERE
+		Lat IS NOT NULL
+		AND Lat != ''
+		AND Lng IS NOT NULL
+		AND Lng != ''
+	</select>
+	
+	<select id="selectCityListByCondition" resultMap="CityResultMap">
+		SELECT ID,NameCn,Lat, Lng
+		FROM
+		web_city
+		WHERE
+		CountryID = #{countryId}
+		<if test="isEnable !=-1">
+			AND is_enable = #{isEnable}
+		</if>
+		<if test="hot !=-1">
+			AND is_hot = #{hot}
+		</if>
+		 ORDER BY visitrate DESC
+	</select>
+	
+	<!-- 获取商品对应的城市和poi对应的城市 订单目的地城市 -->
+	<select id="selectOrderDestCity" resultMap="OrderCityResultMap">
+		SELECT wc.NameCn,wc.NameEn, b.* FROM Web_City AS wc ,
+		(
+		SELECT DISTINCT CityId AS CityID,CountryId AS CountryID FROM
+		Prod_ProductBase WHERE Status=4 AND CityId > 0
+		UNION
+		SELECT DISTINCT ppd.CityID, ppd.CountryID FROM Prod_ProductBase AS ppb
+		JOIN Prod_ProductDestinationCitys AS ppd ON ppb.ID=ppd.ProductBaseID
+		WHERE ppb.Status=4
+		UNION
+		SELECT DISTINCT CityID,CountryID FROM Web_POI WHERE CityID >0
+		) AS b
+		WHERE wc.ID=b.CityID AND wc.CountryID=b.CountryID AND wc.Status = 1
+		ORDER BY wc.is_hot DESC
+	</select>
+</mapper>

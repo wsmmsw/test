@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <dubbo:application name="crm" organization="baicheng.com">
+        <dubbo:parameter key="shutdown.timeout" value="60000"/>
+    </dubbo:application>
+
+    <dubbo:registry address="${dubbo.zk.host}" register="true" subscribe="true" timeout="30000"/>
+    <dubbo:protocol name="dubbo" dispatcher="all" port="${dubbo.protocol.port}" threads="100"/>
+    <dubbo:provider delay="-1"/>
+
+    <!-- 服务调用 -->
+    <dubbo:reference id="IPushService" interface="com.baicheng.dubbo.freetrip.IPushService"
+                     group="freetrip" version="1.0" check="false"/>
+    <dubbo:reference id="IJourneyService" interface="com.baicheng.dubbo.freetrip.IJourneyService"
+                     group="freetrip" version="1.0" check="false"/>
+
+</beans>

@@ -1,0 +1,34 @@
+#container{ width: 100%; height: 100%; position: relative;}
+.topbar{ height: .9rem; border-bottom: 1px solid #d6d6d6;}
+.back{ display: block; width: .44rem; height: .3rem; background: url(../images/nt_iconSprite.png) no-repeat -.44rem 0; background-size:1.76rem auto; float: left;margin-left: .2rem;margin-top: .32rem;}
+.topbar_title{ width: 2.16rem; height: 100%; line-height: .9rem; margin: 0 auto; text-align: center;}
+
+.orderNumBox{ margin-top: .24rem;border-top: 1px solid #d6d6d6;border-bottom: 1px solid #d6d6d6;  padding: 0.2rem .3rem;}
+.orderNum{ font-size: .28rem; color: #595959; -webkit-box-flex:1;}
+.orderTime{ -webkit-box-flex:1; text-align: right; color: #7e7f7f; font-size: .22rem;text-align: left;}
+
+.orderInfoBox{ display: -webkit-box; margin: .26rem .3rem 0; padding-bottom: .26rem; border-bottom: 1px solid #d6d6d6;}
+.orderInfo{ -webkit-box-flex:1;}
+.orderInfoTitle{ color: #585959; font-size: .28rem;}
+.orderInfoDesc{ color: #585959; font-size: .22rem;}
+.orderPeoNum{ width: 1rem; text-align: right;}
+
+.depBox{ display: -webkit-box; height: .8rem; line-height: .8rem; margin: 0 .3rem;border-bottom: 1px solid #d6d6d6;}
+.depTime{ -webkit-box-flex:1; text-align: left; font-size: .28rem;}
+.depDay{ -webkit-box-flex:1; text-align: right; font-size: .28rem;}
+
+.priceBox{ display: -webkit-box; height: .8rem; line-height: .8rem; margin: 0 .3rem;border-bottom: 1px solid #d6d6d6;}
+.price{ -webkit-box-flex:1; text-align: right; font-size: .28rem;}
+.zhushi{ -webkit-box-flex:1; text-align: right; font-size: .28rem;}
+.priceNum{ color: #c06260;}
+
+.totalBox{ display: -webkit-box; height: .8rem; line-height: .8rem; padding: 0 .3rem;border-bottom: 1px solid #d6d6d6;}
+.total{ -webkit-box-flex:1; text-align: left; font-size: .28rem;}
+.totalPrice{ -webkit-box-flex:1; text-align: right; font-size: .28rem; color: #c06260;}
+
+.zhifuBox{display: block;width:80%;text-align:center;margin: auto;margin-top: 1.4rem;border-radius: 0.5rem;color: white;}
+.zhifuTitle{ height: .8rem; line-height: .8rem; padding: 0 .3rem; font-size: .28rem; color: #585959;}
+.wxZhifu{ height: .8rem;background-color:#46A835; color:white;line-height: .8rem; padding: 0 .3rem;border-radius: 5px; font-size: .28rem; position: relative;}
+.zhifu_l{ display: inline-block;padding-left: .7rem; position: relative;}
+.wxIcon{ position: absolute; width: .51rem; height: .51rem; left: 0; top: .17rem; background: url(../images/zhifu_wxIcon.png) no-repeat; background-size: 100% 100%;}
+.zhifu_arrow{ width: .16rem; height: .3rem; background: url(../images/nt_iconSprite.png) no-repeat -1.6rem 0; background-size: 1.76rem auto; position: absolute; top: .2rem; right: .3rem;}

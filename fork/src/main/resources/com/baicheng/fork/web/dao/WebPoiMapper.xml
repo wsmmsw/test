@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baicheng.fork.web.dao.WebPoiMapper">
+
+	<!-- POI信息 -->
+	<sql id="PoiColumn">
+		poi.ID AS poiId,
+		poi.NameCn AS poiNameCn,
+		poi.Lat AS poiLat,
+		poi.Lng AS poiLng
+	</sql>
+	
+	<!-- 国家信息 country.NameEn AS countryNameEn-->
+	<sql id="WebCountryColumn">
+		country.ID AS countryId,
+		country.NameCn AS countryNameCn,
+		country.Lng AS countryLng,
+		country.Lat AS countryLat
+	</sql>
+	
+	<!-- 城市信息 city.NameEn AS cityNameEn,-->
+	<sql id="WebCityColumn">
+		city.ID AS cityId,
+		city.NameCn AS cityNameCn,	
+		city.Lng AS cityLng,
+		city.Lat AS cityLat
+	</sql>
+	
+	<!-- 国家返回字段 -->
+	<resultMap id="WebCountryResultMap" type="com.baicheng.domain.crm.meta.WebCountry">
+		<id column="countryId" property="id"/>
+		<result column="countryNameCn" property="nameCn"/>
+		<result column="countryLng" property="lng"/>
+		<result column="countryLat" property="lat"/>
+	</resultMap>
+	
+	<!-- 城市返回字段 -->
+	<resultMap id="WebCityResultMap" type="com.baicheng.domain.crm.meta.WebCity">
+		<id column="cityId" property="id"/>
+		<result column="cityNameCn" property="nameCn"/>
+		<result column="cityLng" property="lng"/>
+		<result column="cityLat" property="lat"/>
+	</resultMap>
+	
+	<!-- poi数据返回 -->
+	<resultMap  id="PoiResultMap" type="com.baicheng.domain.crm.meta.WebPOI">
+		<id column="poiId" property="id"/>
+		<result column="poiNameCn" property="nameCn"/>
+		<result column="poiLat" property="lat"/>
+		<result column="poiLng" property="lng"/>
+		<!-- 国家结构 -->		
+		<association property="country" javaType="com.baicheng.domain.crm.meta.WebCountry"  
+		resultMap="WebCountryResultMap"/>
+		<!-- 城市结构 -->
+		<association property="city" javaType="com.baicheng.domain.crm.meta.WebCity"  
+		resultMap="WebCityResultMap"/>
+	</resultMap>
+
+	<!-- 查询返回的POI数据  -->
+	<select id="getPois" resultMap="PoiResultMap">
+		SELECT
+		<include refid="PoiColumn"/>
+		FROM web_poi AS poi
+		<where>			
+			poi.MainType = #{mainType}
+		</where>
+	</select>
+	
+	<!-- 查询返回的POI数据  -->
+	<select id="getPoisWithCity" resultMap="PoiResultMap">
+		SELECT
+		<include refid="PoiColumn"/>,
+		<include refid="WebCityColumn" />
+		FROM (
+			SELECT 
+			ID,NameCn,Lat,Lng,CityID
+			FROM web_poi 
+			<where>			
+				MainType = #{mainType}
+			</where>
+		) AS poi
+		INNER JOIN web_city AS city ON city.ID=poi.CityID
+	</select>
+	
+	<!-- 查询返回的POI数据  -->
+	<select id="getPoisWithCountry" resultMap="PoiResultMap">
+		SELECT
+		<include refid="PoiColumn"/>,
+		<include refid="WebCountryColumn" />
+		FROM (
+			SELECT 
+			ID,NameCn,Lat,Lng,CountryID
+			FROM web_poi 
+			<where>			
+				MainType = #{mainType}
+			</where>
+		) AS poi
+		INNER JOIN web_country AS country ON country.ID=poi.CountryID
+	</select>
+		
+</mapper>

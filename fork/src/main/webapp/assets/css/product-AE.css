@@ -1,0 +1,252 @@
+/*******style for productAE*********/
+
+#productAEfrom
+{
+	font-family: "Microsoft YaHei" ! important;
+}
+#productlist
+{
+
+}
+#productlist a.btn
+{
+	margin:5px;
+}
+#product_search
+{
+	margin:.5rem;
+}
+/***********
+*chosoe product type page 
+*style
+************/
+
+/**********
+*edit product message style
+**************/
+#productAEfrom .productAE_message
+{
+	width:100%;
+	height:70rem;
+}
+#productAEfrom .productAE_message .productAE_message_title
+{
+	font-size: 03rem;
+    padding: 4rem;
+}
+#productAEfrom .productAE_message .productAE_message_title span
+{
+	font-weight: 500;
+	margin-right:2rem;
+}
+#productAEfrom .productAE_message a.message_btn
+{
+	display: inline-block;
+    width: 10rem;
+    text-align: center;
+    height: 3rem;
+    font-size: 2.0rem;
+    line-height:3.0rem;
+    color: #706F6F;
+    border: 1px solid #ACA4A4;
+    text-decoration: none;
+    cursor: pointer;
+    
+}
+#productlist .permission
+{
+	display:none;
+}
+#productAEfrom .productAE_message .productAE_message_from
+{
+
+    height: 56rem;
+    border: 1px solid rgba(163, 161, 161, 0.84);
+    width: 95%;
+    margin: auto;
+	padding: 2rem 0rem;
+}
+    
+#productAEfrom .productAE_message .productAE_message_from ul
+{
+	list-style:none;
+}
+#productAEfrom .productAE_message .productAE_message_from ul li
+{
+	width:100%;
+	height:45rem;
+}
+#productAEfrom .product_AE_base_message .product_AE_recommend_title
+{
+	font-size:2.5rem;
+	
+}
+#productAEfrom .product_AE_base_message .input_from
+{
+	margin-top:2rem;
+	font-size:2rem;
+	padding-left:5rem;
+}
+#productAEfrom .product_AE_base_message .input_from label
+{
+	width:10rem;
+}
+#productAEfrom .product_AE_base_message .input_from div
+{
+	margin-bottom:2rem;
+}
+#productAEfrom .product_AE_base_message .input_from div input,#productAEfrom .product_AE_base_message .input_from select
+{
+	width:20rem;
+	margin:0px;
+}
+#productAEfrom a#upload_img_btn
+{
+    width: 12rem;
+    text-align: center;
+    display: inline-block;
+    border-radius: 8px !important;
+    background-color: #3CA3E3;
+    color: white;
+    line-height:2.0rem;
+    padding: .5rem 0rem;
+}
+
+#product_message_list li
+{
+	list-style:none;
+	
+	
+}
+.mainmenu_choose
+{
+	background-color: rgba(186, 186, 186, 0.28) !important;
+}
+.submenu_choose
+{
+    color: #F26507 !important;
+    background-color: rgba(186, 186, 186, 0.28) !important;
+}
+.product_AE_recommend ul 
+{
+	padding:40px 0px;
+	height:500px;
+}
+.product_AE_recommend ul textarea
+{
+	height:500px;
+}
+
+
+#country_show_from
+{
+	padding:10px;
+	border:1px solid black;
+	position: absolute;
+    margin-left: 10.55rem;
+    background-color:white;
+    min-width: 20rem;
+    max-height: 30rem;
+    overflow: auto;
+    display:none;
+}
+#country_show_from span
+{
+	cursor:pointer;
+	border-bottom:2px solid black;
+}
+/*******
+*product message list style
+*******/
+/*li[1]*/
+#product_message_list .AE_input_form div
+{
+	margin:20px 0px;
+}
+#product_message_list .AE_input_form div label
+{
+	display:inline-block;
+	width:10rem;
+	font-size:1.5rem;
+}
+#product_message_list .AE_input_form div input[type="text"]
+{
+	width:25rem;
+	font-size:1.5px;
+	
+}
+#product_message_list .AE_input_form div span
+{
+	display:inline-block;
+	width:5rem;
+}
+/*li[2]*/
+#product_message_list .AE_input_price
+{
+    height: 100%;
+    overflow: auto;
+}
+#product_message_list .AE_input_price table
+{
+	width:100%;
+	text-align:center;
+	
+}
+
+/*li[3]*/
+#product_message_list .fee_covers
+{
+	height:100%;
+}
+/*li[4]*/
+#product_message_list .need_mes table
+{
+	width: 60rem;
+    text-align: center;
+}
+
+#add_need_mes
+{
+	margin-top:20px;
+}
+.secend_level_from
+{
+	border:6px solid #999999;
+}
+
+
+/*li[5]*/
+
+#product_message_list .app_flow table
+{
+	width: 60rem;
+    text-align: center;
+}
+
+.secend_level_from .AE_app_title
+{
+	height:2.5rem;
+	background-color:#999999;
+	color:white;
+	font-size:2rem;
+	
+}
+.secend_level_from .AE_app_input_from
+{
+	padding:2rem;
+	padding-bottom:5rem;
+}
+.secend_level_from .AE_app_input_from a.btn
+{
+	float:right;
+	margin:5px;
+}
+.addTNF{margin-top:10px;}
+.AE_app_input_from div.inputForm
+{
+	margin-bottom:10px;
+}
+.AE_app_input_from div.inputForm input
+{
+	width:240px;
+}

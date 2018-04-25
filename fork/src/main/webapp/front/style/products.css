@@ -1,0 +1,21 @@
+#container{ width: 100%; height: 100%; position: relative;}
+.head{ background: #f2f2f2; border-bottom: 1px solid #dadada;}
+.topbar{ height: .56rem; padding-top: .2rem;}
+.back{ display: block; width: .44rem; height: .3rem; background: url(../images/nt_iconSprite.png) no-repeat -.44rem 0; background-size:1.76rem auto; float: left;margin-left: .2rem;margin-top: .16rem;}
+.topbar_title{ /*width: 2.16rem;*/ display: block; height: 100%;margin: 0 auto;}
+.topbar_title_bg{ width: .37rem; height: .56rem; display: block;/*background: url(../images/topbar_logo.png) no-repeat;*/ background-size:cover; background-position:center center; position: absolute; left: -.4rem; top: 0;}
+.topbar_title_txt{ /*width: 1.69rem;*/ height: .56rem; white-space: nowrap; display: inline-block;background: url(../images/topbar_titleBg.png) no-repeat right center; background-size:100% 100%; /*float: right;*/ color: #c46e6e; font-size: .28rem; text-align: center; line-height: .59rem; position: absolute; top: .2rem; left: 50%; -webkit-transform: translateX(-50%); padding-left: .2rem; padding-right: .1rem;}
+.toolbar{ padding: .3rem .6rem; display: -webkit-box;}
+.juzhu{ -webkit-box-flex: 1; color: #515151; font-size: .35rem; line-height: .6rem;}
+.sel_ls{ width: 2rem; height: .6rem; line-height: .6rem; text-align: center; background: #fff; border-radius: 4px; position: relative; z-index: 1;}
+.juzhuList{ display: block; width: 100%; height: 100%; -webkit-appearance: none; background: transparent; border: none; color: #5a5757;}
+.sel_ls:after{ position: absolute; content: ''; right: .14rem; top: 50%; -webkit-transform: translateY(-50%); width: 0px; height: 0px; border-top: 4px solid #c06260; border-left: 6px solid transparent; border-right: 6px solid transparent; z-index: 5;}
+.main{ padding: 0 .3rem;}
+.cityTitle{ height: .92rem; line-height: .92rem; font-size: .4rem; color: #4d4c4d; border-bottom: 1px solid #bebebe; text-align: center;}
+.productsList{}
+.productsList li{ padding: .2rem 0; height: 1.22rem; border-bottom: 1px solid #bebebe;}
+.productsList li a{ display: block; height: 100%; display: -webkit-box;}
+.productPic{ width: 1.8rem; height: 1.22rem; background-position: center center; background-size: cover;}
+.productInfo{ padding-left: .2rem; -webkit-box-flex:1; line-height: 100%;}
+.productText{ padding-top: .26rem; color: #515151; font-size: .3rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+.productPrice{ padding-top: .22rem; color: #c06260; font-size: .3rem;}

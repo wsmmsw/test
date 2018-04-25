@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baicheng.fork.web.dao.ContinentMapper">
+
+    <sql id="minContinentColumn">
+		ID,NameCn
+	</sql>
+
+    <resultMap id="minContinentResultMap" type="com.baicheng.domain.crm.meta.WebContinent">
+        <result column="ID" property="continentId"/>
+        <result column="NameCn" property="NameCn"/>
+    </resultMap>
+
+    <select id="selectAll" resultMap="minContinentResultMap">
+        SELECT
+        <include refid="minContinentColumn"/>
+        FROM web_continent
+    </select>
+
+</mapper>

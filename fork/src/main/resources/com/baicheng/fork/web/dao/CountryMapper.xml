@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baicheng.fork.web.dao.CountryMapper">
+
+    <sql id="minCountryColumn">
+		Country.ID AS countryId,
+		Country.NameCn AS countryName
+	</sql>
+
+    <resultMap id="minCountryResultMap" type="com.baicheng.domain.crm.meta.WebCountry">
+        <result column="countryId" property="id"/>
+        <result column="countryName" property="nameCn"/>
+    </resultMap>
+
+    <select id="getHotCountryList" resultMap="minCountryResultMap">
+        SELECT
+        <include refid="minCountryColumn"/>
+        FROM web_country AS Country
+        WHERE　isHot=1
+        ORDER BY visitrate DESC
+    </select>
+
+    <select id="getCountryList" resultMap="minCountryResultMap">
+        SELECT
+        <include refid="minCountryColumn"/>
+        FROM web_country AS Country
+    </select>
+
+</mapper>

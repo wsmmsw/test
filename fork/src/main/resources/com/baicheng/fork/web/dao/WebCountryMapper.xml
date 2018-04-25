@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baicheng.fork.web.dao.WebCountryMapper">
+	
+	<cache flushInterval="86400000"/>
+	
+	<resultMap id="nameResultMap" type="com.baicheng.domain.crm.meta.WebCountry">
+		<id column="ID" property="id" jdbcType="INTEGER" />
+	    <result column="NameCn" property="nameCn" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="selectCountryNameList" resultMap="nameResultMap">
+		SELECT c.ID, c.NameCn FROM web_country c
+	</select>
+	
+	<select id="selectCountryByContinentId" resultMap="nameResultMap" parameterType="java.lang.Long">
+		select distinct(p.CountryId) id, c.`NameCn` from `prod_productbase` p left join `web_country` c on countryId = c.ID where c.`ContinentID` = #{id}
+	</select>
+	
+	<select id="selectCountryByCondtion" resultMap="nameResultMap">
+		SELECT country.ID, country.NameCn 
+		FROM web_country AS country
+		<where>
+		country.ID in
+		<foreach collection="countryIds" item="countryId" open="(" close=")" separator=",">
+		 	#{countryId}
+		</foreach>
+		</where>
+	</select>
+	
+</mapper>

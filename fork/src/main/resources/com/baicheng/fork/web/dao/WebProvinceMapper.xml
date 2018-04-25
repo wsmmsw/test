@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baicheng.fork.web.dao.WebProvinceMapper">
+
+    <resultMap id="nameResultMap" type="com.baicheng.domain.crm.meta.WebProvince">
+        <id column="RegionId" property="id" jdbcType="INTEGER"/>
+        <result column="RegionName" property="nameCn" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="ProvinceResultMap" type="com.baicheng.domain.crm.meta.ContactProvince">
+        <result column="RegionId" property="id"/>
+        <result column="RegionName" property="nameCn"/>
+    </resultMap>
+
+    <resultMap id="CityResultMap" type="com.baicheng.domain.crm.meta.ContactCity">
+        <result column="RegionId" property="id"/>
+        <result column="RegionName" property="nameCn"/>
+    </resultMap>
+
+    <select id="selectAllProvince" resultMap="nameResultMap">
+		SELECT c.RegionId, c.RegionName FROM base_city c WHERE c.RegionType = 1
+	</select>
+
+    <select id="getProvinceList" resultMap="ProvinceResultMap">
+        SELECT RegionId,RegionName
+        FROM Base_City
+        <where>
+            ParentId = 0
+            AND RegionType=1
+        </where>
+    </select>
+
+    <select id="getCityListByProvinceId" resultMap="CityResultMap">
+        SELECT RegionId,RegionName
+        FROM Base_City
+        <where>
+            ParentId = #{provinceId}
+        </where>
+    </select>
+
+</mapper>

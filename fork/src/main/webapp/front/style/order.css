@@ -1,0 +1,39 @@
+html, body{ height: 100%; background: #f2f2f2;}
+#container{ padding-bottom: .8rem;}
+.topbar{ height: .56rem; padding-top: .2rem;}
+.back{ display: block; width: .44rem; height: .3rem; background: url(../images/nt_iconSprite.png) no-repeat -.44rem 0; background-size:1.76rem auto; float: left;margin-left: .2rem;margin-top: .16rem;}
+.topbar_title{ width: 2.16rem; height: 100%;margin: 0 auto;}
+.topbar_title_bg{ width: .37rem; height: .56rem; display: block;background: url(../images/topbar_logo.png) no-repeat; background-size:cover; float: left;}
+.topbar_title_txt{ width: 1.69rem; height: .56rem; display: block;background: url(../images/topbar_titleBg.png) no-repeat right center; background-size:cover; float: right; color: #c46e6e; font-size: .28rem; text-align: center; line-height: .59rem;}
+.main{ padding-top: .3rem;}
+.depDateBox{ padding: 0 .3rem;}
+.dep_title{ font-size: .3rem; line-height: 100%; color: :#4e4d4e; clear: both;}
+.mustIcon{ display: block; float: left; width: .22rem; height: .31rem; background: url(../images/nt_iconSprite.png) no-repeat -1.1rem .04rem; background-size:1.76rem auto; margin-right: .05rem;}
+.depDateBox_content{ height: .9rem; line-height: .9rem; background: #fff; border-radius: 8px; padding-left: 1.26rem; margin-top: .2rem; font-size: .32rem; color: #7e7e7e;}
+.ymdTxt{ display: block; float: left;text-align:center; width: 3rem; position: relative;}
+#appDate{ width: 100%; height: 100%; position: absolute; left: 0; top: 0; opacity: 0;}
+.ymdTxt:after{ position: absolute; content: ''; display: block; right: .1rem; top: 50%; -webkit-transform: translateY(-50%); width: 0; height: 0; border-top: 6px solid #c06260; border-left: 5px solid transparent; border-right: 5px solid transparent;}
+.weekTxt{ display: block; float: left; margin-left: .5rem;}
+.depDayBox{ padding: .3rem .3rem 0;}
+.datList_wrap{ height: .9rem;text-align:center; line-height: .9rem; background: #fff; border-radius: 8px; margin-top: .2rem; font-size: .32rem; color: #7e7e7e; padding: 0 .8rem;}
+.datList{height: 100%; overflow: hidden; position: relative;}
+.datList ul{ clear: both; overflow: hidden; width: 10.06rem; padding-top: .14rem; position: absolute; left: 0; top: 0;}
+.datList ul li{ float: left; font-size: .32rem; color: #7e7e7e; width: .6rem; height: .6rem; border-radius: 50%; border: 1px solid #fff; margin: 0 .14rem; text-align: center; line-height: .6rem;}
+.datList ul li.current{ border: 1px solid #d4847e;}
+.peoNumBox{ padding: .3rem .3rem 0; clear: both; overflow: hidden; line-height: .46rem;}
+.peoNumBox_title{ color: #4e4d4e; font-size: .3rem; float: left;}
+.peoNumBox_title .mustIcon{ background-position: -1.1rem .09rem;}
+.peoSelectBox{float: right;}
+.peoNum_reduce,.day_reduce{ display: inline-block; width: .4rem; height: .46rem; background: #fff; border-radius: 6px; text-align: center; color: #c06260; font-size: .3rem; margin-right: .2rem;}
+.peoNum_add,.day_add{ display: inline-block; width: .4rem; height: .46rem; background: #fff; border-radius: 6px; text-align: center; color: #c06260; font-size: .3rem; margin-left: .2rem;}
+.peoNum,.dayNum{ color: #5b5b5b; font-size: .38rem;}
+.priceBox{ padding: .3rem .3rem 0; color: #7e7e7e; font-size: .24rem;}
+.price{ color: #d27974; font-size: .3rem;}
+.dep_title{ padding: .3rem .3rem 0;}
+.countryList{ padding: .3rem .1rem 0; clear: both; overflow: hidden;}
+.countryList ul li{ float: left; height: .52rem; line-height: .52rem; border: 1px solid #c8c8c7; border-radius: 4px; margin-left: .12rem; margin-bottom: .15rem; padding-left: .08rem; padding-right: .68rem; position: relative;}
+.countryIcon{ position: absolute; display: block; width: .64rem; height: .52rem; background: url(../images/nt_iconSprite.png) no-repeat -.73rem -.47rem; background-size:1.76rem auto; right: 0; top: 0;}
+.countryList ul li.current{ border-color: #c26764; color: #c26764;}
+.countryList ul li.current .countryIcon{ background: url(../images/nt_iconSprite.png) no-repeat 0 -.47rem; background-size:1.76rem auto;}
+
+.continueBtn{ width: 100%; height: .8rem; background: #c06260; color: #fff; font-size: .4rem; text-align: center; line-height: .8rem; position: fixed; bottom: 0; left: 0; z-index: 10;}

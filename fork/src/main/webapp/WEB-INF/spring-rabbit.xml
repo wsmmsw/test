@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit.xsd">
+
+    <!-- connectionFactory,virtual host "/test" -->
+    <rabbit:connection-factory id="connectionFactory" host="${rabbit.host}" port="${rabbit.port}"
+                               virtual-host="${rabbit.vhost.prod}" username="${rabbit.vhost.prod.user}"
+                               password="${rabbit.vhost.prod.pwd}"/>
+    <!-- 声明队列、交换器（Exchange）、绑定（Binding） -->
+    <rabbit:admin connection-factory="connectionFactory"/>
+
+    <!-- Queue List -->
+    <rabbit:queue name="${rabbit.vhost.prod.queue.prod}"/>
+
+    <!-- Listener container 监听容器，为消息出队提供异步处理 -->
+    <rabbit:listener-container connection-factory="connectionFactory" prefetch="1" acknowledge="manual">
+        <rabbit:listener ref="prodQueueSubscriber" queue-names="${rabbit.vhost.prod.queue.prod}"/>
+    </rabbit:listener-container>
+
+    <!-- order queue publisher and subscriber -->
+    <bean id="prodQueueSubscriber" class="com.baicheng.fork.web.joint.linktour.consumer.ProdQueueConsumer"/>
+
+</beans>

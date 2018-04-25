@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baicheng.fork.web.dao.BranchCompanyMapper">
+
+    <cache flushInterval="86400000"/>
+    <resultMap id="BaseResultMap" type="com.baicheng.domain.crm.meta.BranchCompany">
+        <id column="BranchId" jdbcType="BIGINT" property="branchId"/>
+        <result column="BranchName" jdbcType="VARCHAR" property="branchName"/>
+        <result column="ZipCode" jdbcType="VARCHAR" property="ZIPCode"/>
+        <result column="RegionId" jdbcType="INTEGER" property="regionId"/>
+        <result column="Address" jdbcType="VARCHAR" property="address"/>
+        <result column="Phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="Fax" jdbcType="VARCHAR" property="fax"/>
+        <result column="Deleted" jdbcType="INTEGER" property="deleted"/>
+        <result column="PinYin" jdbcType="VARCHAR" property="pinyin"/>
+        <result column="city_code" jdbcType="VARCHAR" property="cityCode"/>
+        <result column="WorkingDays" jdbcType="VARCHAR" property="workingDays"/>
+        <result column="TrafficRoute" jdbcType="VARCHAR" property="trafficRoute"/>
+        <result column="MapUrl" jdbcType="VARCHAR" property="mapUrl"/>
+        <result column="Longitude" jdbcType="REAL" property="longitude"/>
+        <result column="Latitude" jdbcType="REAL" property="latitude"/>
+        <result column="ExpressPhone" jdbcType="VARCHAR" property="expressPhone"/>
+        <result column="CityID" jdbcType="BIGINT" property="cityId"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    BranchId, BranchName, ZipCode, RegionId, Address, Phone, Fax, Deleted, PinYin, city_code, 
+    WorkingDays, TrafficRoute, MapUrl, Longitude, Latitude, ExpressPhone, CityID
+  </sql>
+
+    <select id="selectBranchCompanyList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from com_branch
+    </select>
+
+</mapper>
